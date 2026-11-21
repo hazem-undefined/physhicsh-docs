@@ -1,0 +1,21 @@
+1. You need private ctor for any new fields to the object
+
+RectanglePhysicsObject for example:
+
+private RectanglePhysicsObject(RectanglePhysicsObject source) : base(source)
+{
+    Size = source.Size;
+}
+
+2. Override CreateCopy():
+
+protected override PhysicsObject CreateCopy() => new RectanglePhysicsObject(this);
+
+3. At the end of the Start() override Apply initial state:
+
+public override void Start(World world)
+{
+    base.Start(world);
+    BuildFixture();
+    ApplyInitialState();
+}
